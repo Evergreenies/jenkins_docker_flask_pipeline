@@ -3,7 +3,7 @@ def img
 pipeline {
   agent any
 
-  environmanet {
+  environment {
     registry = "suyogshimpi/jenkins_docker_flask_pipeline"
     registryCredential = "docker-hub-creds1"
     dockerImage = ""
