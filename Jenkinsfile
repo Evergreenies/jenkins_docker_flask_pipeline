@@ -1,5 +1,3 @@
-def img
-
 pipeline {
   agent any
   stages {
