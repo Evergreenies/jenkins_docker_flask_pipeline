@@ -19,7 +19,7 @@ pipeline {
     stage("build") {
       steps {
         script {
-          img = registry : "#{BUILD_ID}"
+          img = registry + ":${BUILD_ID}"
           println("${img}")
           dockerImage = docker.build("${img}")
         }
