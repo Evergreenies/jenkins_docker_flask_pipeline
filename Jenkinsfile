@@ -1,46 +1,44 @@
-def img
-
 pipeline {
   agent any
-
-  environment {
-    registry = "suyogshimpi/jenkins_docker_flask_pipeline"
-    registryCredential = "docker-hub-creds1"
-    dockerImage = ""
-  }
-
   stages {
     stage('git-checkout') {
       steps {
         sh 'https://github.com/Evergreenies/jenkins_docker_flask_pipeline.git'
       }
     }
-    
-    stage("build") {
+
+    stage('build') {
       steps {
         script {
           img = registry + ":${BUILD_ID}"
           println("${img}")
           dockerImage = docker.build("${img}")
         }
-      }  
+
+      }
     }
 
-    stage("test") {
+    stage('test') {
       steps {
         sh 'docker run -d --name ${JOB_NAME} -p 5000:5000 ${img}'
       }
     }
 
-    stage("publish") {
+    stage('publish') {
       steps {
-        script{
+        script {
           docker.withRegistry("https://registry.hub.docker.com", registryCredential) {
             dockerImage.push()
           }
         }
+
       }
     }
 
+  }
+  environment {
+    registry = 'suyogshimpi/jenkins_docker_flask_pipeline'
+    registryCredential = 'docker-hub-creds1'
+    dockerImage = ''
   }
 }
