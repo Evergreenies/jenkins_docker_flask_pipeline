@@ -1,3 +1,5 @@
+def img
+
 pipeline {
   agent any
   stages {
@@ -14,7 +16,6 @@ pipeline {
           println("${img}")
           dockerImage = docker.build("${img}")
         }
-
       }
     }
 
@@ -27,14 +28,12 @@ pipeline {
     stage('publish') {
       steps {
         script {
-          docker.withRegistry("https://registry.hub.docker.com", registryCredential) {
+          docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
             dockerImage.push()
           }
         }
-
       }
     }
-
   }
   environment {
     registry = 'suyogshimpi/jenkins_docker_flask_pipeline'
