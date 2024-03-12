@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('checkout') {
       steps {
-        sh 'sh \'https://github.com/Evergreenies/jenkins_docker_flask_pipeline.git'
+        sh 'https://github.com/Evergreenies/jenkins_docker_flask_pipeline.git'
       }
     }
 
